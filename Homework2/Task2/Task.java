@@ -31,11 +31,11 @@ public class Task<T> {
                 synchronized(this){
                     this.notifyAll();   
                 }
-                return currentResult; 
             }
             catch(RuntimeException runtimeException){
                 throw new CallException();
             }
         }
+        return currentResult; 
     }
 }
