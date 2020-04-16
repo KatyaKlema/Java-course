@@ -2,37 +2,37 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class ScalableThreadPool implements ThreadPool {
-    private static final Deque<Runnable> queueTasks = new ArrayDeque<>();
-    private static Deque<ScalableThreadPoolWorker> queueThreads;
+    private final Deque<Runnable> queueTasks = new ArrayDeque<>();
+    private Deque<ScalableThreadPoolWorker> queueThreads;
     int minNumOfThreads;
     int maxNumOfThreads;
 
     public ScalableThreadPool(int minNumOfThreads, int maxNumOfThreads){
         this.minNumOfThreads = minNumOfThreads;
         this.maxNumOfThreads = maxNumOfThreads;
-        queueThreads = new ArrayDeque<ScalableThreadPoolWorker>(this.minNumOfThreads);
+        this.queueThreads = new ArrayDeque<ScalableThreadPoolWorker>(this.minNumOfThreads);
     }
 
     @Override
     public void start() {
-        for(ScalableThreadPoolWorker thread : queueThreads){
+        for(ScalableThreadPoolWorker thread : this.queueThreads){
             thread.start();
         }
     }
 
     private boolean isGreaterThanMax(){
-        return queueThreads.size() > this.maxNumOfThreads;
+        return this.queueThreads.size() > this.maxNumOfThreads;
     }
     private boolean isLesserThanMin(){
-        return queueThreads.size() < this.minNumOfThreads;
+        return this.queueThreads.size() < this.minNumOfThreads;
     }
     @Override
     public void execute(Runnable runnable) {
-        synchronized(queueThreads){
+        synchronized(this.queueThreads){
             queueTasks.addLast(runnable);
             if(!queueTasks.isEmpty()&& !isGreaterThanMax()){
                 ScalableThreadPoolWorker tempWorker = new ScalableThreadPoolWorker();
-                queueThreads.addLast(tempWorker);
+                this.queueThreads.addLast(tempWorker);
                 tempWorker.start();
             }
             else{
@@ -53,9 +53,9 @@ public class ScalableThreadPool implements ThreadPool {
                     }
                     queueTasks.removeFirst().run();
                 }
-                synchronized (queueThreads){
+                synchronized (this.queueThreads){
                     if(!isLesserThanMin() && queueTasks.isEmpty()){
-                        queueThreads.removeFirst();
+                        this.queueThreads.removeFirst();
                     }
                 }
             }
