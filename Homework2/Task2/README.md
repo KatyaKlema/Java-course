@@ -1,7 +1,7 @@
 Ваша задача реализовать класс Task имеющий один метод ```get()```:
 ```Java
 public class Task<T> {
-    public Task(Callable<? extends T>; callable) {
+    public Task(Callable<? extends T> callable) {
         //...
     }
     public T get() {
