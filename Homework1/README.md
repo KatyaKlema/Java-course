@@ -47,7 +47,7 @@ public interface CountMap {
 Параметризовать методы, используя правило PECS, и реализовать их. 
 ```java
 public class CollectionUtils {
-    public static&lt;T&gt; void addAll(List&lt;? extends T&gt; source, List&lt;? super T&gt; destination) {    
+    public static<T> void addAll(List<? extends T> source, List<? super T> destination) {    
         destination.addAll(source);
     }
  
