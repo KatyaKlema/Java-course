@@ -1,4 +1,4 @@
-package com.countmappackage;
+
 import java.util. *;
 
 public class MapImpl<K, V> implements CountMap<K, V>{
@@ -11,7 +11,7 @@ public class MapImpl<K, V> implements CountMap<K, V>{
     @Override
     public <T extends K, Integer> void add(T o){
         if(this.m.containsKey(o)){
-            this.m.getValue(o) += 1;
+            this.m.replace(o, this.m.get(o) + 1);
         }
         else{
             this.m.put(o, isUsed);
@@ -57,7 +57,7 @@ public class MapImpl<K, V> implements CountMap<K, V>{
     }
 
     @Override
-    public void toMap(Map<? extends K, Integer> destination){
+    public void toMap(Map<? super K, Integer> destination) {
         destination = this.m;
     }
 }
