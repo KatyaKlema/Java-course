@@ -35,7 +35,7 @@ public class ScalableThreadPool implements ThreadPool {
                 queueThreads.addLast(tempWorker);
                 tempWorker.start();
             }
-            else{
+            else if(isGreaterThanMax()){
                 notify();
             }
         }
