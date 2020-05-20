@@ -29,7 +29,7 @@ public interface CountMap {
 }
 
 пример использования 
-        CountMap&lt;Integer&gt; map = new CountMapIml&lt;&gt;();
+        CountMap<Integer>; map = new CountMapIml<>();
 
         map.add(10);
         map.add(10);
