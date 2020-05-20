@@ -6,7 +6,8 @@ public class XMLSerializer implements SerializerStrategy{
 
     @Override
     public String body(String output, String fieldName) {
-        return "\t<" + fieldName + "> ";
+        output += "\t<" + fieldName + "> ";
+        return output;
     }
 
     @Override
