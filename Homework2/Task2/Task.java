@@ -9,33 +9,20 @@ public class Task<T> {
         this.isCalled = false;
     }
     public T get() throws Exception {
-        if(currentResult != null){
-            return currentResult;
-        }
-        if(isCalled){
-            synchronized (this){
-                while(currentResult == null){
-                    try{
-                        this.wait();
-                    }
-                    catch(RuntimeException runtimeException){
-                        throw new CallException();
-                    }
-                }
-            }
-        }
-        else{
-            isCalled = true;
-            try {
-                currentResult = callable.call();
+        try{
+            if(!isCalled){
                 synchronized(this){
-                    this.notifyAll();   
+                    if(isCalled){
+                        return currentResult;   
+                    }
+                    currentResult = callable.call();
+                    isCalled = true;
                 }
             }
-            catch(RuntimeException runtimeException){
-                throw new CallException();
-            }
+            return currentResult;   
         }
-        return currentResult; 
+        catch(RuntimeException runtimeException){
+            throw new CallException();
+        }
     }
 }
