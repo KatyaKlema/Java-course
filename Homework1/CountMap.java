@@ -18,13 +18,13 @@ public interface CountMap<K, V> {
 
     //Добавить все элементы из source в текущий контейнер, при совпадении ключей,     суммировать
     //значения
-    void addAll(CountMap<?super K, V> source);
+    void addAll(CountMap<? super K, V> source);
 
     //Вернуть java.util.Map. ключ - добавленный элемент, значение - количество его добавлений
     Map<? super K, Integer> toMap();
 
     //Тот же самый контракт как и toMap(), только всю информацию записать в destination
-    void toMap(Map<? extends K, Integer> destination);
+    void toMap(Map<? super K, Integer> destination);
 }
 
 
