@@ -1,16 +1,21 @@
 package com.countmappackage;
 import java.util. *;
 
-public class newMap<K, V> implements CountMap<K, V>{
+public class MapImpl<K, V> implements CountMap<K, V>{
     private Map<K, Integer> m = new HashMap<>();
     private Integer isUsed = 1;
-    public newMap(Map<K, Integer> _m){
+    public MapImpl(Map<K, Integer> _m){
         this.m = _m;
     }
 
     @Override
     public <T extends K, Integer> void add(T o){
-        this.m.put(o, isUsed);
+        if(this.m.containsKey(o)){
+            this.m.getValue(o) += 1;
+        }
+        else{
+            this.m.put(o, isUsed);
+        }
     }
     @Override
     public <T extends K, Integer> int getCount(T o){
