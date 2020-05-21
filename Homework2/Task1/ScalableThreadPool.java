@@ -28,7 +28,7 @@ public class ScalableThreadPool implements ThreadPool {
     }
     @Override
     public void execute(Runnable runnable) {
-        synchronized(this.queueThreads){
+        synchronized(this.queueTasks){
             queueTasks.addLast(runnable);
             if(!queueTasks.isEmpty()&& !isGreaterThanMax()){
                 ScalableThreadPoolWorker tempWorker = new ScalableThreadPoolWorker();
