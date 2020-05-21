@@ -54,7 +54,7 @@ public class ScalableThreadPool implements ThreadPool {
                     queueTasks.removeFirst().run();
                 }
                 synchronized (this.queueThreads){
-                    if(!isLesserThanMin() && queueTasks.isEmpty()){
+                    while(!isLesserThanMin() && queueTasks.isEmpty()){
                         this.queueThreads.removeFirst();
                     }
                 }
