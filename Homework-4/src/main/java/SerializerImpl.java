@@ -12,28 +12,35 @@ public class SerializerImpl implements Serializer {
     }
 
     public boolean isSimpleType(Class<?> type){
-        return Set.of(Float.class, Double.class,
-                Short.class, Integer.class, Long.class,
-                Character.class, Boolean.class).contains(type);
+        return Set.of(float.class, double.class,
+                short.class, int.class, long.class,
+                char.class, boolean.class).contains(type);
+    }
+    public boolean isSimpleClass(String className){
+        return Set.of("Float", "Double",
+                "Short", "Integer", "Long",
+                "Character", "Boolean").contains(className);
     }
     @Override
     public String serialize(Object o) throws IllegalAccessException {
         String className = o.getClass().getSimpleName();
         String output = "";
-
         //get begin of the output string
         output += serializerStrategy.head(className);
-
-        for(Field field : o.getClass().getDeclaredFields()){
-            field.setAccessible(true);
-            Class fieldClass = field.getType();
-            String fieldName = field.getName();
-            if(isSimpleType(fieldClass)){
-                serializerStrategy.body(output, fieldName);
-            }
-            else{
-                System.out.println("Field type should be primitive!");
-                return null;
+        if(isSimpleClass(className)){
+            output = serializerStrategy.body(output, o.toString());
+        }
+        else {
+            for (Field field : o.getClass().getFields()) {
+                field.setAccessible(true);
+                Class fieldClass = field.getType();
+                String fieldName = field.getName();
+                if (isSimpleType(fieldClass)) {
+                    output = serializerStrategy.body(output, fieldName);
+                } else {
+                    System.out.println("Field type should be primitive!");
+                    return null;
+                }
             }
         }
 
