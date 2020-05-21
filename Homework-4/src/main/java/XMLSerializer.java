@@ -1,13 +1,12 @@
 public class XMLSerializer implements SerializerStrategy{
     @Override
     public String head(String className) {
-        return  "<" + className + ">/n";
+        return  "<" + className + ">\n";
     }
 
     @Override
     public String body(String output, String fieldName) {
-        output += "\t<" + fieldName + "> ";
-        return output;
+        return "\t<" + fieldName + "> \n";
     }
 
     @Override
@@ -15,3 +14,4 @@ public class XMLSerializer implements SerializerStrategy{
         return "</" + className + ">";
     }
 }
+
