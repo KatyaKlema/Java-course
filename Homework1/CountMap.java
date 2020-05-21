@@ -1,8 +1,7 @@
-package com.countmappackage;
-
 import java.util.*;
+
 public interface CountMap<K, V> {
-    // добавляет элемент в этот контейнер. 
+    // добавляет элемент в этот контейнер.
     <T extends K, V>void add(T o);
 
     //Возвращает количество добавлений данного элемента
@@ -16,15 +15,13 @@ public interface CountMap<K, V> {
     //количество разных элементов
     int size();
 
-    //Добавить все элементы из source в текущий контейнер, при совпадении ключей,     суммировать
+    //Добавить все элементы из source в текущий контейнер, при совпадении ключей,     суммировать
     //значения
-    void addAll(CountMap<? super K, V> source);
+    void addAll(CountMap<?super K, V> source);
 
     //Вернуть java.util.Map. ключ - добавленный элемент, значение - количество его добавлений
-    Map<? super K, Integer> toMap();
+    Map<? extends K, Integer> toMap();
 
     //Тот же самый контракт как и toMap(), только всю информацию записать в destination
-    void toMap(Map<? super K, Integer> destination);
+    void toMap(Map<? extends K, Integer> destination);
 }
-
-
