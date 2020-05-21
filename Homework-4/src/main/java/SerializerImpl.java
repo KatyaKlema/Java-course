@@ -28,7 +28,7 @@ public class SerializerImpl implements Serializer {
         //get begin of the output string
         output += serializerStrategy.head(className);
         if(isSimpleClass(className)){
-            output = serializerStrategy.body(output, o.toString());
+            output += serializerStrategy.body(output, o.toString());
         }
         else {
             for (Field field : o.getClass().getFields()) {
@@ -36,7 +36,7 @@ public class SerializerImpl implements Serializer {
                 Class fieldClass = field.getType();
                 String fieldName = field.getName();
                 if (isSimpleType(fieldClass)) {
-                    output = serializerStrategy.body(output, fieldName);
+                    output += serializerStrategy.body(output, fieldName);
                 } else {
                     System.out.println("Field type should be primitive!");
                     return null;
