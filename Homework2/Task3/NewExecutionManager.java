@@ -1,12 +1,12 @@
+package ru.sbt.mipt.oop.adapters;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class NewExecutionManage implements ExecutionManage {
-    private AtomicInteger finishedTasks;
-    private AtomicInteger faildTasks;
-    private AtomicInteger interruptedTasks;
+    private AtomicInteger finishedTasks = new AtomicInteger(0);
+    private AtomicInteger faildTasks = new AtomicInteger(0);
+    private AtomicInteger interruptedTasks = new AtomicInteger(0);
 
     private boolean isFinished;
     private boolean isInterrupted;
@@ -46,7 +46,6 @@ class NewExecutionManage implements ExecutionManage {
                     interruptedTasks.incrementAndGet();
                 }
             }
-
             callback.run();
             isFinished = true;
         });
@@ -54,7 +53,7 @@ class NewExecutionManage implements ExecutionManage {
         main.start();
         return new NewContext();
     }
-    
+
     public class NewContext implements Context {
         @Override
         public int getCompleteTaskCount() {
