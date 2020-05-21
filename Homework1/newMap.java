@@ -1,10 +1,13 @@
 
 import java.util. *;
 
-public class MapImpl<K, V> implements CountMap<K, V>{
+public class newMap<K, V> implements CountMap<K, V>{
     private Map<K, Integer> m = new HashMap<>();
     private Integer isUsed = 1;
-    public MapImpl(Map<K, Integer> _m){
+    public newMap(){
+        this.m = new HashMap<>();
+    }
+    public newMap(Map<K, Integer> _m){
         this.m = _m;
     }
 
@@ -52,12 +55,12 @@ public class MapImpl<K, V> implements CountMap<K, V>{
     }
 
     @Override
-    public Map<? super K, Integer> toMap(){
+    public Map<? extends K, Integer> toMap(){
         return this.m;
     }
 
     @Override
-    public void toMap(Map<? super K, Integer> destination) {
+    public void toMap(Map<? extends K, Integer> destination) {
         destination = this.m;
     }
 }
