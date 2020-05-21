@@ -1,7 +1,7 @@
 public class JSONSerializer implements SerializerStrategy {
     @Override
     public String  head(String className) {
-        return  "{\n";
+        return  className + "{\n";
     }
 
     @Override
@@ -12,6 +12,6 @@ public class JSONSerializer implements SerializerStrategy {
 
     @Override
     public String footer(String className) {
-        return "}, \n";
+        return "\n}, \n";
     }
 }
