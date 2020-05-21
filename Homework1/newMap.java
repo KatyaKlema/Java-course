@@ -2,7 +2,7 @@
 import java.util. *;
 
 public class newMap<K, V> implements CountMap<K, V>{
-    private Map<K, Integer> m = new HashMap<>();
+    private Map<K, Integer> m;
     private Integer isUsed = 1;
     public newMap(){
         this.m = new HashMap<>();
@@ -48,7 +48,13 @@ public class newMap<K, V> implements CountMap<K, V>{
     public void addAll(CountMap<? super K, V> source){
         ArrayList<K> keys = (ArrayList<K>)source.getKeys();
         for (K key : keys){
-            for(int i = 0; i < this.getCount(key); ++i){
+            if(this.getCount(key) > 1){
+                for(int i = 0; i < this.getCount(key); ++i){
+                    //this.m.put(key, isUsed);
+                    this.m.replace(key, this.m.get(key) + 1);
+                }
+            }
+            else{
                 this.m.put(key, isUsed);
             }
         }
